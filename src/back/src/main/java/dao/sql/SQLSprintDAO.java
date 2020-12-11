@@ -3,6 +3,7 @@ package dao.sql;
 import dao.SprintDAO;
 import domain.Sprint;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -14,6 +15,7 @@ public class SQLSprintDAO extends SQLDAO<Sprint> implements SprintDAO {
         return new Sprint(
             getInteger(resultSet, "project"),
             resultSet.getString("name"),
+            resultSet.getString("state"),
             getInteger(resultSet, "id")
         );
     }
@@ -35,25 +37,47 @@ public class SQLSprintDAO extends SQLDAO<Sprint> implements SprintDAO {
     }
 
     @Override
+    public Sprint getActiveForProject(int projectId) throws SQLException {
+        String statement = "SELECT * FROM sprint WHERE project=? AND state=?";
+        List<Object> opt = Arrays.asList(projectId, "active");
+
+        PreparedStatement preparedStatement = SQLDatabase.prepare(statement, opt);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Sprint result = null;
+
+        if (resultSet.next()) {
+            result = createObjectFromResult(resultSet);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+
+        return result;
+    }
+
+    @Override
     public Sprint insert(Sprint sprint) throws Exception {
         if (sprint.id != null)
             throw new SQLException("This sprint already has an id, use update !");
-        String statement = "{CALL insert_sprint(?, ?, @id)}";
+        String statement = "{CALL insert_sprint(?, ?, ?, @id)}";
 
         List<Object> opt = Arrays.asList(
                 sprint.projectId,
-                sprint.name
+                sprint.name,
+                sprint.state
         );
 
-        return new Sprint(sprint.projectId, sprint.name, doInsert(statement, opt));
+        return new Sprint(sprint.projectId, sprint.name, sprint.state, doInsert(statement, opt));
     }
 
     @Override
     public void update(Sprint sprint) throws SQLException {
-        String statement = "UPDATE sprint SET name = ? WHERE project = ? AND id = ?";
+        String statement = "UPDATE sprint SET name = ?, state = ? WHERE project = ? AND id = ?";
 
         List<Object> opt = Arrays.asList(
                 sprint.name,
+                sprint.state,
                 sprint.projectId,
                 sprint.id
         );

@@ -1,0 +1,19 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ajout de test</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form" [formGroup]="testForm">
+            <input type="text" class="form-control" placeholder="Nom du Test" formControlName="name">
+            <input type="text" class="form-control" placeholder="Description du Test" formControlName="description">
+        </form>
+        <button type="button" class="btn modal-submit-button" (click)="modal.close('Save click')">Ajouter</button>
+    </div>
+
+</ng-template>
+
+
+<button class="btn add-button" (click)="open(content)">Ajouter un test</button>

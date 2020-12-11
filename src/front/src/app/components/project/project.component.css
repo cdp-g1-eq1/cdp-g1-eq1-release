@@ -1,0 +1,25 @@
+.search-button{
+    color: #2d5867;
+    font: bold 2.5vmin;
+}
+
+.search-button:hover{
+    border-color: #2d5867;
+}
+
+.cancel-search-button{
+    color:#2d5867;
+    font: bold 2.5vmin;
+}
+
+.cancel-search-button:hover{
+    border-color:#2d5867
+}
+
+.search-input{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding:2px;
+    font: 2.2vmin Sans-Serif;
+}
+

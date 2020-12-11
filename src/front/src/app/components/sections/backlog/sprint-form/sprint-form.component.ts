@@ -5,7 +5,6 @@ import {ProjectService} from '../../../../services/project.service';
 import {SprintService} from '../../../../services/sprint.service';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {UsService} from '../../../../services/us.service';
 
 @Component({
     selector: 'app-sprint-form',
@@ -32,15 +31,13 @@ export class SprintFormComponent implements OnInit {
     onSprintSubmit(value: any): void {
         const newSprint = new Sprint(
             value.name,
+            'pending',
             this.projectService.currentProject.getId()
         );
 
         this.sprintService.post(newSprint.getProjectId(), newSprint).subscribe(
-            sprint => {
-                console.log('sprint was added !');
-            }
+            sprint => {}
         );
-        console.log('Adding sprint ' + value.name);
     }
 
     open(content): void {

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import domain.*;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,6 +73,7 @@ class SQLProjectDAOTest {
         Task t1 = new SQLTaskDAO().insert(new Task(project.id, us.id, member.user, "tache 1", "1hh", "TODO"));
         Task t2 = new SQLTaskDAO().insert(new Task(project.id, us.id, member.user, "tache 2", "1hh", "TODO"));
         domain.Test test = new SQLTestDAO().insert(new domain.Test("test", "test un test", null, "validate", project.id));
+        Release release = new SQLReleaseDAO().insert(new Release(project.id, "test", "desc", new Version(1, 2, 3), "testest", "2020-12-04", Arrays.asList(us)));
         new SQLTaskDAO().addDependency(t1, t2);
 
         assertDoesNotThrow(() -> projectDAO.delete(project));
@@ -82,6 +84,7 @@ class SQLProjectDAOTest {
         assertThrows(SQLException.class, () -> new SQLTaskDAO().getById(project.id, t1.id));
         assertThrows(SQLException.class, () -> new SQLTaskDAO().getById(project.id, t2.id));
         assertThrows(SQLException.class, () -> new SQLTestDAO().getById(project.id, test.id));
+        assertThrows(SQLException.class, () -> new SQLReleaseDAO().getById(release.id));
         assertTrue(new SQLTaskDAO().getChildrenTasks(t1).isEmpty());
     }
 }

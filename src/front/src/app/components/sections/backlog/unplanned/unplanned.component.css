@@ -1,6 +1,5 @@
-.us-container {
-    border-radius: 20px;
-    border-style: solid;
-    border-color: #bbbbbb;
-    border-width: 2px;
+.customized-card{
+
+    box-shadow: #2d5867;
+    box-shadow: 0 0 10px;
 }

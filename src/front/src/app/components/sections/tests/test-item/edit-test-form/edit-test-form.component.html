@@ -1,0 +1,19 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Édition</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form">
+            <input type="text" class="form-control" [(ngModel)]="testName" name="testName">
+            <input type="text" class="form-control" [(ngModel)]="testDescription" name="testDescription">
+            <button type="button" class="btn modal-submit-button" (click)="modal.close('Save click')">Appliquer</button>
+        </form>
+    </div>
+
+</ng-template>
+
+
+<button class="btn edit-button" (click)="open(content)">Éditer</button>

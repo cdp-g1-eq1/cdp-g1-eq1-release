@@ -1,9 +1,13 @@
-.container {
-
-    border-radius: 20px;
-    border-style: solid;
-    border-color: #dddddd;
-    border-width: 2px;
-
-    background-color: white;
+.customized-card {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background:#6f8a8f;
+    border-radius: 10px;
+    padding-bottom: 0;
 }
+
+.customized-card-values{
+    margin-top: 1%;
+    color: #ffffff;
+}
+

@@ -1,1 +1,22 @@
-<p>sprint-actif works!</p>
+<div class="container">
+    <div class="row">
+        <div class="section-title col-10">Sprint Actif</div>
+        <div class="howto_link">
+            <a href="how-to#active_sprint">Documentation</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 customized-card" *ngIf="sprint">
+            <button class="btn common-button float-right" (click)="closeSprintTest()">Cloturer</button>
+            <h4 class="customized-card-title"> {{sprint.getName()}}</h4>
+            <app-us *ngFor="let userStory of userStories" [us]="userStory"></app-us>
+        </div>
+        <div class="col-12">
+            <div class="container m-4" *ngIf="!sprint">
+                <h4 class="customized-card-title ml-2 mt-2"> Aucun sprint selectionné</h4>
+            </div>
+        </div>
+    </div>
+    <app-close-sprint-error #child (closeSprint)="closeSprint()"></app-close-sprint-error>
+
+</div>

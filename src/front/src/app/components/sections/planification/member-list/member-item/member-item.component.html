@@ -1,25 +1,26 @@
-<div class="list-group-item my-2 rounded" ng-hide="expression">
-    <div class ="card rounded" style="width: 18rem;">
-        <div class ="card-header">
-            <button type="button" class="btn btn-primary ml-2 mt-2" data-toggle="modal" [attr.data-target]="'#user'+currentMember.user">
+<div class="list-group-item">
+    <div class="customized-card rounded" style="width: 18rem;">
+        <div class="customized-card-header">
+            <button type="button" class="btn member-name-button" data-toggle="modal"
+                [attr.data-target]="'#user'+currentMember.user">
                 {{currentMember.getName()}}
             </button>
+            <button type="button" class="btn delete-button float-right" (click)="deleteMember()">Supprimer</button>
         </div>
-        <div class ="card-body">
-            <div class ="a">
-                <b>Role</b> : {{currentMember.getRole()}}
+        <div class="customized-card-body">
+            <div class="a">
+                <b>Rôle</b> : {{currentMember.getRole()}}
             </div>
-            <div class ="a">
+            <div class="a">
                 <b>Level</b> : {{currentMember.getLevel()}}
             </div>
-            <button type = "button" class= "btn btn-danger ml-1 mt-2" (click)= "deleteMember()">Supprimer</button>
         </div>
-        <div class="modal fade" [attr.id]="'user'+currentMember.user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
+        <div class="modal fade" [attr.id]="'user'+currentMember.user" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Editer</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -27,18 +28,16 @@
                     <div class="modal-body">
                         <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
                             <div>
-                                <label for="role">
-                                    role
-                                </label>
-                                <input id="role" type="text" formControlName="role"></div>
+                                <label class="form-label" for="role">Rôle</label>
+                                <input class="form-control" id="role" type="text" formControlName="role">
+                            </div>
 
                             <div>
-                                <label for="level">
-                                    level
-                                </label>
-                                <input id="level" type="text" formControlName="level"></div>
+                                <label class="form-label" for="level">Niveau d'expérience</label>
+                                <input class="form-control" id="level" type="text" formControlName="level">
+                            </div>
 
-                            <button type="submit" class="button">Enregistrer</button>
+                            <button type="submit" class="btn modal-submit-button">Enregistrer</button>
                         </form>
                     </div>
                 </div>

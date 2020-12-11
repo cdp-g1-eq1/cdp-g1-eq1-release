@@ -33,6 +33,18 @@ import { MemberItemComponent } from './components/sections/planification/member-
 
 import { UnplannedComponent } from './components/sections/backlog/unplanned/unplanned.component';
 import { SprintFormComponent } from './components/sections/backlog/sprint-form/sprint-form.component';
+import { TestFormComponent } from './components/sections/tests/test-form/test-form.component';
+import { EditTestFormComponent } from './components/sections/tests/test-item/edit-test-form/edit-test-form.component';
+import { UsCreateFormComponent } from './components/sections/backlog/us-create-form/us-create-form.component';
+import { UsEditFormComponent } from './components/sections/backlog/us-card/us-edit-form/us-edit-form.component';
+import { HowToComponent } from './components/sections/how-to/how-to.component';
+import { ReleaseItemComponent } from './components/sections/releases/release-item/release-item.component';
+import { UsComponent } from './components/sections/sprint-actif/us/us.component';
+import { SimpleTaskComponent } from './components/sections/sprint-actif/us/simple-task/simple-task.component';
+import { ReleaseCreateFormComponent } from './components/sections/releases/release-create-form/release-create-form.component';
+import { DependencyGraphComponent } from './components/sections/planification/dependency-graph/dependency-graph.component';
+import {NgxGraphModule} from '@swimlane/ngx-graph';
+import { CloseSprintErrorComponent } from './components/sections/sprint-actif/close-sprint-error/close-sprint-error.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -58,7 +70,18 @@ import { SprintFormComponent } from './components/sections/backlog/sprint-form/s
         MemberListComponent,
         MemberItemComponent,
         UnplannedComponent,
-        SprintFormComponent
+        SprintFormComponent,
+        TestFormComponent,
+        EditTestFormComponent,
+        UsCreateFormComponent,
+        UsEditFormComponent,
+        HowToComponent,
+        ReleaseItemComponent,
+        UsComponent,
+        SimpleTaskComponent,
+        DependencyGraphComponent,
+        ReleaseCreateFormComponent,
+        CloseSprintErrorComponent
     ],
     imports: [
         BrowserModule,
@@ -68,7 +91,8 @@ import { SprintFormComponent } from './components/sections/backlog/sprint-form/s
         FormsModule,
         ReactiveFormsModule,
         DragDropModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        NgxGraphModule
     ],
     providers: [
         ProjectService

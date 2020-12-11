@@ -1,0 +1,26 @@
+.member-name-button{
+    font : 2vmin bolder Sans-Serif;
+    color: #6b605b;
+
+}
+
+.member-name-button:hover{
+    text-decoration: underline;
+}
+
+.member-name-button{
+    color:#f5f5f5;
+}
+
+.delete-button{
+    margin-left:4vmin;
+}
+
+.customized-card-body{
+    padding:4%;
+}
+
+.list-group-item{
+    background: transparent;
+    border: transparent;
+}

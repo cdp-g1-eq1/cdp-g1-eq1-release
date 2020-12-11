@@ -14,9 +14,9 @@ CALL insert_test(2, 'test2 p2', 'test2 p2 description', NULL, 'not executed', @i
 
 -- Create sprints for the projects
 
-CALL insert_sprint(1,"Sprint 1", @id);
-CALL insert_sprint(1,"Le super Sprint", @id);
-CALL insert_sprint(2,"Sprint 1", @id);
+CALL insert_sprint(1,"Sprint 1", "pending", @id);
+CALL insert_sprint(1,"Le super Sprint", "pending", @id);
+CALL insert_sprint(2,"Sprint 1", "pending", @id);
 
 -- Add 3 us to the first project, 1 us to the second us
 
@@ -34,12 +34,12 @@ VALUES (1, 'David', 'product owner', 'senior'),
 
 -- Add a few tasks to the first two projects
 
-CALL insert_task(1, "Faire un truc", "3hh", "TODO", 1, 1, @id);
-CALL insert_task(1, "Faire un autre truc", "2hh", "TODO", 1, 1, @id);
-CALL insert_task(1, "Faire un truc pour l'autre truc", "3hh", "TODO", 2, 1, @id);
-CALL insert_task(1, "Faire le premier truc", "1d", "DOING", 1, 2, @id);
-CALL insert_task(1, "Check quand la liste est vide", "1d", "DONE", 1, 2, @id);
-CALL insert_task(2, "Faire le premier truc", "1d", "DOING", 1, null, @id);
+CALL insert_task(1, "Faire un truc", "3", "DOING", 1, 1, @id);
+CALL insert_task(1, "Faire un autre truc", "2", "DONE", 1, 1, @id);
+CALL insert_task(1, "Faire un truc pour l'autre truc", "3", "TODO", 2, 1, @id);
+CALL insert_task(1, "Faire le premier truc", "1", "TODO", 1, 2, @id);
+CALL insert_task(1, "Check quand la liste est vide", "1", "TODO", 1, 2, @id);
+CALL insert_task(2, "Faire le premier truc", "1", "TODO", 1, null, @id);
 CALL insert_task(2, "Faire un truc on sait pas pourquoi encore", "", "TODO", null, 3, @id);
 
 -- Create some DODs for a few tasks
@@ -56,3 +56,14 @@ INSERT INTO task_dep (project, parent, child)
 VALUES (1, 1, 2),
     (1, 2, 3),
     (2, 1, 2);
+
+-- Add a release
+
+INSERT INTO `release` (project, title, description, version_major, version_minor, version_patch, link, creation_date)
+VALUES (1, "Premiere version", "Ceci est la premiere version du logiciel", 1, 0, 0, "https://google.com", "2020-12-04");
+
+-- Adds us in releases
+
+INSERT INTO release_us (project, `release`, us)
+VALUES (1, 1, 1),
+    (1, 1, 2);

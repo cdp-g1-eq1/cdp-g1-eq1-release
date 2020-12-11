@@ -26,6 +26,7 @@ export class TasksComponent implements OnInit {
     members = [];
     usSubscription: Subscription;
     private formBuilder: FormBuilder = new FormBuilder();
+    estimateValue: number;
 
     constructor(
         private projectService: ProjectService,
@@ -52,11 +53,12 @@ export class TasksComponent implements OnInit {
                     this.projectService.setCurrentProject(Project.fromJSON(project));
                     this.currentProject = this.projectService.currentProject;
 
-                    this.tasksSubscription = this.taskService.subject.subscribe(
+                    this.tasksSubscription = this.taskService.getSubject(this.currentProject.getId()).subscribe(
                         result => {
                             this.tasks = result;
                             this.usIdList();
                             this.memberList();
+                            this.getEstimateValue();
                         }
                     );
 
@@ -68,15 +70,17 @@ export class TasksComponent implements OnInit {
 
 
     createTask(data: any): void {
-        console.log(data);
-        const task = new Task(-1, this.currentProject.getId(), data.usId, data.member, data.title, data.duration, data.status);
-        this.taskService.post(this.currentProject.getId(), task).subscribe(() => { });
+        const todo = 'TODO';
+        if (!Number.isNaN(parseInt(data.duration, 10))) {
+            const task = new Task(-1, this.currentProject.getId(), data.usId, data.member, data.title, data.duration, todo);
+            this.taskService.post(this.currentProject.getId(), task).subscribe(() => { });
+        }
 
     }
 
 
     usIdList(): void {
-        this.usSubscription = this.usService.subject.subscribe(
+        this.usSubscription = this.usService.getSubject(this.currentProject.getId()).subscribe(
             result => {
                 this.UserStories = result;
             }
@@ -90,6 +94,11 @@ export class TasksComponent implements OnInit {
                 this.members = result.map(x => Member.fromJSON(x));
             }
         );
+    }
+
+    getEstimateValue(): void {
+        this.estimateValue = 0;
+        this.tasks.forEach(tasks => this.estimateValue = this.estimateValue + parseInt(tasks.getDuration(), 10));
     }
 
 }

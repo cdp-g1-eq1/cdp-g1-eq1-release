@@ -25,6 +25,17 @@ public class UserStories {
     }
 
     @GET
+    @Path("unreleased")
+    @Produces("application/json")
+    public Response getUnreleased(@PathParam("projectId") int projectId) {
+        try {
+            return Response.status(200).entity(userStoryDAO.getUnreleasedForProject(projectId)).build();
+        } catch (Exception e) {
+            return Response.status(400).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
     @Path("{usId}")
     @Produces("application/json")
     public Response get(@PathParam("projectId") int projectId, @PathParam("usId") int usId) {
@@ -59,6 +70,7 @@ public class UserStories {
     @Produces("application/json")
     public Response postUs(@PathParam("projectId") int projectId, UserStory userStory) {
         userStory = new UserStory(projectId, userStory.description, userStory.priority, userStory.difficulty, userStory.sprint);
+
         UserStory built;
         try {
             built = userStoryDAO.insert(userStory);
